@@ -1,0 +1,90 @@
+Part 1:
+Answer 1)
+At breakpoint on line 7 there are 4 stack frames:
+#0: 0xbffff700
+#1: 0xbffff720
+#2: 0xbffff790
+#3: 0x0
+
+At breakpoint on line 15 there are  3 stack frames:
+#0: 0xbffff720
+#1: 0xbffff790
+#2: 0x0
+
+Answer 3)
+Main returns 0xcb25d or 832093
+
+Obtained by setting a breakpoint on line 17 and observing EAX
+
+Answer 4)
+
+1       int swap_n_add(int *xp, int *yp) {
+    0x080483ed <+0>:     push   %ebp
+    0x080483ee <+1>:     mov    %esp,%ebp
+    0x080483f0 <+3>:     sub    $0x10,%esp
+2         int x = *xp;
+    0x080483f3 <+6>:     mov    0x8(%ebp),%eax
+    0x080483f6 <+9>:     mov    (%eax),%eax
+    0x080483f8 <+11>:    mov    %eax,-0x8(%ebp)
+3         int y = *yp;
+    0x080483fb <+14>:    mov    0xc(%ebp),%eax
+    0x080483fe <+17>:    mov    (%eax),%eax
+    0x08048400 <+19>:    mov    %eax,-0x4(%ebp)
+4
+5         *xp = y;
+    0x08048403 <+22>:    mov    0x8(%ebp),%eax
+    0x08048406 <+25>:    mov    -0x4(%ebp),%edx
+    0x08048409 <+28>:    mov    %edx,(%eax)
+6         *yp = x;
+    0x0804840b <+30>:    mov    0xc(%ebp),%eax
+    0x0804840e <+33>:    mov    -0x8(%ebp),%edx
+    0x08048411 <+36>:    mov    %edx,(%eax)
+7         return x + y;
+    0x08048413 <+38>:    mov    -0x4(%ebp),%eax
+    0x08048416 <+41>:    mov    -0x8(%ebp),%edx
+    0x08048419 <+44>:    add    %edx,%eax
+    0x0804841b <+46>:    leave
+8       }
+    0x0804841c <+47>:    ret
+
+Answer 5)
+Before swap_n_add:
+a1 = 534
+a2 = 1057
+
+After swap_n_add:
+a1 = 1057
+a2 = 534
+
+If swap did not occur then value of diff will -1 * diff = -523 as the operands of subtraction will be reversed.
+
+Answer 6)
+Main returns 0xcb25d or 832093
+
+Part 2:
+Answer 4)
+While loop:
+    0x0804840f <+34>:    jmp    0x804841b <main+46>
+    0x08048411 <+36>:    mov    -0x8(%ebp),%eax
+    0x08048414 <+39>:    add    %eax,-0x10(%ebp)
+    0x08048417 <+42>:    addl   $0x1,-0xc(%ebp)
+    0x0804841b <+46>:    mov    -0xc(%ebp),%eax     ; Loop test condition, move first variable to eax
+    0x0804841e <+49>:    cmp    -0x4(%ebp),%eax     ; compare with second variable
+    0x08048421 <+52>:    jl     0x8048411 <main+36> ; Loop if less
+
+Answer 5)
+There is no difference between while and for loop in assembly.
+
+Answer 5b)
+For loop:
+    0x0804840f <+34>:    jmp    0x804841b <main+46>
+    0x08048411 <+36>:    mov    -0x8(%ebp),%eax
+    0x08048414 <+39>:    add    %eax,-0x10(%ebp)
+    0x08048417 <+42>:    addl   $0x1,-0xc(%ebp)
+    0x0804841b <+46>:    mov    -0xc(%ebp),%eax
+    0x0804841e <+49>:    cmp    -0x4(%ebp),%eax
+    0x08048421 <+52>:    jl     0x8048411 <main+36>
+
+Answer 6)
+The jmp command moves the control to beginning of loop test codition as in while loop the test is performed before entering the loop.
+
