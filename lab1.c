@@ -10,26 +10,10 @@
  * case it's OK.
  */
 
-#include "btest.h"
+#include "testFramework.h"
 #include <limits.h>
 
-/*
- * Instructions to Students:
- *
- * STEP 1: Fill in the following struct with your identifying info.
- */
-user_struct user =
-{
-   /* Student name: HongCheng Xu */
-   "HongCheng Xu",
-   /* Login ID: hongchengx */
-   "hongchengx"
-};
-
 #if 0
-/*
- * STEP 2: Read the following instructions carefully.
- */
 
 You will provide your solution to the Lab by
 editing the collection of functions in this source file.
@@ -102,17 +86,17 @@ EXAMPLES OF ACCEPTABLE CODING STYLE:
 
 
 NOTE:
-  Use the btest test harness to check your functions for correctness.
+  Use the test harness to check your functions for correctness.
 #endif
 
 /*
- * STEP 3: Modify the following functions according the coding rules.
+ * Modify the following functions according the coding rules.
  *
  *   IMPORTANT. TO AVOID GRADING SURPRISES:
  *   1. Make sure to use the labCheck program (Done automatical when using make)
  *      to check for following the rules.
- *   2. Use the btest test harness to check that your solutions produce
- *      the correct answers. Watch out for corner cases around Tmin and Tmax.
+ *   2. Use the testFramework to check that your solutions produce
+ *      the correct answers. Watch out for corner cases around min and max.
  *   3. Write comments at the begining of each function.  If someting goes wrong,
  *      but you explain what the function should be doing, it will be considered
  *      when grading.
@@ -128,8 +112,7 @@ NOTE:
  *   Legal ops: ~ |
  */
 int bitAnd(int x, int y) {
-  /*NOR Equivelent of AND Demorgan's Law*/
-  return ~(~x | ~y);
+  return ~(~x|~y);
 }
 
 
@@ -138,7 +121,6 @@ int bitAnd(int x, int y) {
  *   Legal ops: ! ~ & ^ | + << >>
  */
 int minusOne(void) {
-  /*filp all 0 to 1, and the sign is 0 to 1. minus sign*/
   return ~0;
 }
 
@@ -148,8 +130,7 @@ int minusOne(void) {
  *   Legal ops: ! ~ & ^ | + << >>
  */
 int tmax(void) {
-  /*tMax is 0xEFFF...  move a 1 to MSB and not it*/
-  return ~(1 << 31);
+  return ~(1<<31);
 }
 
 
@@ -159,23 +140,18 @@ int tmax(void) {
  *   Legal ops: ! ~ & ^ | + << >>
  */
 int copyLSB(int x) {
-  /*shift LSB to MSB, Then arithmatic shift*/
-  x = x << 31;
-  x = x >> 31;
-  return x;
+  return x<<31>>31;
 }
 
 
 /*
- * evenBits - return the input word where all odd-numbered bits of that are set to 0
+ * evenBits - return the input word where all even-numbered bits of that are set to 1
  *   Legal ops: ! ~ & ^ | + << >>
  */
 int evenBits(int x) {
-  /*10011001 to 00010001  when the odd number set to 0. get each odd number use left shift and keep the even number like previous number and then use and to combine the output number */
-  int i = 0x55;
-  int odd = (i << 24) | (i << 16) | (i << 8) | i;
-  int evenbits = (x & odd);
-  return evenbits;
+  int a = 0x55;
+  int b = (a<<24) | (a<<16) | (a<<8) | a;
+  return (x&b);
 }
 
 
@@ -185,8 +161,7 @@ int evenBits(int x) {
  *   Legal ops: ! ~ & ^ | + << >>
  */
 int isEqual(int x, int y) {
-  /*XOR gives a measure of inequal bits and so NOT-XOR is equality */
-  return !(x ^ y);
+  return !(x^y);
 }
 
 
@@ -196,7 +171,6 @@ int isEqual(int x, int y) {
  *   Legal ops: ! ~ & ^ | + << >>
  */
 int negate(int x) {
-  /*flip add1*/
   return ~x+1;
 }
 
@@ -210,15 +184,10 @@ int negate(int x) {
  *   Legal ops: ! ~ & ^ | + << >>
  */
 int bitMask(int highbit, int lowbit) {
-  /*mask1 mask the bits above the higher bit, mask2 mask the bits below the 
-    lower bit, mask3 mask all but  highest bit, combine masks to get 1's above     and below. Not get 1's in final mask*/
-  int mask1 = ~0 << highbit;
-  int mask2 = ~(~0 << lowbit);
-  int mask3 = ~(1 << highbit);
-  
-  mask1 = mask1 & mask3;
-
-  return ~(mask1 | mask2);
+  int a = ~0<<highbit;
+  int b = 1<<highbit;
+  int c = ~(a^b);
+  return c>>lowbit<<lowbit;
 }
 
 
@@ -229,9 +198,6 @@ int bitMask(int highbit, int lowbit) {
  *   Legal ops: ! ~ & ^ | + << >>
  */
 int conditional(int x, int y, int z) {
-  /*First, negate the !x  filp add 1 to get the all 1 and minus one get z value
-    if  negate !(!x) to get 1 and with !(!x) to minus one get y  value
-    finally use or to combine two result*/
   int conditional = (((~(!x)+1) & ~0) &z) | (((~(!(!x))+1) & ~0) &y);
   return conditional;
 }
@@ -243,8 +209,7 @@ int conditional(int x, int y, int z) {
  *   Legal ops: ! ~ & ^ | + << >>
  */
 int isPositive(int x) {
-  /*Use 1<<31 to mask sign bit. Use !x to test for x=0. use or to combine them.  and negate it*/
-  return !((x&(1<<31)) | !x);
+  return !((x &(1<<31)) | !x);
 }
 
 
@@ -254,14 +219,12 @@ int isPositive(int x) {
  *   Legal ops: ! ~ & ^ | + << >>
  */
 int reverseBytes(int x) {
-  /*get all1 and get each byte */
-  int mask = 0xFF;
-  int byte0 = x & mask;
-  int byte1 = (x >> 8) & mask;
-  int byte2 = (x >> 16) & mask;
-  int byte3 = (x >> 24) & mask;
-  /*assembly reverse each  byte*/
-  return byte3 | (byte2 << 8) | (byte1 << 16) | (byte0 << 24);
+  int a = 0xFF;
+  int first = x<<24;
+  int second = (x<<8)&(a<<16);
+  int third = (x>>8)&(a<<8);
+  int forth = (x>>24)&a;
+  return first | second | third | forth;
 }
 
 
@@ -272,10 +235,9 @@ int reverseBytes(int x) {
  *   Legal ops: ! ~ & ^ | + << >>
  */
 int isPower2(int x) {
-  /*use  minusone get mask. Arthmetic shift. XOR against all 1's minus1, non-pow-2 would have a diff bit pattern and notreturn non-zero return use the or combine x and  x+xor */
-  int mask,x1,xor;
-  mask = ~0;
-  x1 = x >> 31;
-  xor = (mask ^ x1);
-  return !((x & (x + xor)) + !x);
+  int x1, x2, x3;
+  x1 = ~0;
+  x2 = x >> 31;
+  x3 = (x1^x2);
+  return !((x & (x + x3)) + !x);
 }
