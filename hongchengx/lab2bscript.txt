@@ -1,0 +1,856 @@
+Script started on Tue 21 Mar 2017 03:48:02 PM AST
+]0;user@ubuntu-sts: ~/gdbuser@ubuntu-sts:~/gdb$ gcc -g -o swap_n_add swap_a[Kn_add.c
+]0;user@ubuntu-sts: ~/gdbuser@ubuntu-sts:~/gdb$ gdb swap_n_add
+GNU gdb (Ubuntu 7.7.1-0ubuntu5~14.04.2) 7.7.1
+Copyright (C) 2014 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "i686-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from swap_n_add...done.
+[;31mgdb-peda$ [0mb 7
+Breakpoint 1 at 0x8048413: file swap_n_add.c, line 7.
+[;31mgdb-peda$ [0mb 15
+Breakpoint 2 at 0x8048453: file swap_n_add.c, line 15.
+[;31mgdb-peda$ [0mrun
+Starting program: /home/user/gdb/swap_n_add 
+[;34m[----------------------------------registers-----------------------------------][0m
+[m[;32mEAX[0m: [;34m0xbffff70c[0m --> 0x216 
+[;32mEBX[0m: [;34m0xb7fd2000[0m --> 0x1a9da8 
+[;32mECX[0m: 0x92be013d 
+[;32mEDX[0m: 0x216 
+[;32mESI[0m: 0x0 
+[;32mEDI[0m: 0x0 
+[;32mEBP[0m: [;34m0xbffff6f8[0m --> [;34m0xbffff718[0m --> 0x0 
+[;32mESP[0m: [;34m0xbffff6e8[0m --> [;34m0x804a000[0m --> [;32m0x8049f14[0m --> 0x1 
+[;32mEIP[0m: [;31m0x8048413[0m (<swap_n_add+38>:	mov    -0x4(%ebp),%eax)[0m
+[m[;32mEFLAGS[0m: 0x286 ([;32mcarry[0m [;1;31mPARITY[0m [;32madjust[0m [;32mzero[0m [;1;31mSIGN[0m [;32mtrap[0m [;1;31mINTERRUPT[0m [;32mdirection[0m [;32moverflow[0m)[0m
+[m[;34m[-------------------------------------code-------------------------------------][0m[0m
+[m   0x804840b <swap_n_add+30>:[;2m	mov    0xc(%ebp),%eax[0m
+   0x804840e <swap_n_add+33>:[;2m	mov    -0x8(%ebp),%edx[0m
+   0x8048411 <swap_n_add+36>:[;2m	mov    %edx,(%eax)[0m
+=> 0x8048413 <swap_n_add+38>:[;1;32m	mov    -0x4(%ebp),%eax[0m
+   0x8048416 <swap_n_add+41>:[m	mov    -0x8(%ebp),%edx[0m
+   0x8048419 <swap_n_add+44>:[m	add    %edx,%eax[0m
+   0x804841b <swap_n_add+46>:[m	leave  [0m
+   0x804841c <swap_n_add+47>:[;34m	ret[0m[0m
+[m[;34m[------------------------------------stack-------------------------------------][0m[0m
+[m0000| [;34m0xbffff6e8[0m --> [;34m0x804a000[0m --> [;32m0x8049f14[0m --> 0x1 [0m
+[m0004| [;34m0xbffff6ec[0m --> [;31m0x80484b2[0m (<__libc_csu_init+82>:	add    $0x1,%edi)[0m
+[m0008| [;34m0xbffff6f0[0m --> 0x216 [0m
+[m0012| [;34m0xbffff6f4[0m --> 0x421 [0m
+[m0016| [;34m0xbffff6f8[0m --> [;34m0xbffff718[0m --> 0x0 [0m
+[m0020| [;34m0xbffff6fc[0m --> [;31m0x8048443[0m (<main+38>:	mov    %eax,-0x8(%ebp))[0m
+[m0024| [;34m0xbffff700[0m --> [;34m0xbffff708[0m --> 0x421 [0m
+[m0028| [;34m0xbffff704[0m --> [;34m0xbffff70c[0m --> 0x216 [0m
+[;34m[------------------------------------------------------------------------------][0m
+[mLegend: [;31mcode[0m, [;34mdata[0m, [;32mrodata[0m, value[0m
+
+Breakpoint 1, swap_n_add (xp=0xbffff708, yp=0xbffff70c) at swap_n_add.c:7
+7	  return x + y;
+[;31mgdb-peda$ [0minfo stack
+#0  swap_n_add (xp=0xbffff708, yp=0xbffff70c) at swap_n_add.c:7
+#1  0x08048443 in main (argc=0x1, argv=0xbffff7b4) at swap_n_add.c:13
+#2  0xb7e41a83 in __libc_start_main (main=0x804841d <main>, argc=0x1, argv=0xbffff7b4, 
+    init=0x8048460 <__libc_csu_init>, fini=0x80484d0 <__libc_csu_fini>, 
+    rtld_fini=0xb7fed180 <_dl_fini>, stack_end=0xbffff7ac) at libc-start.c:287
+#3  0x08048311 in _start ()
+[;31mgdb-peda$ [0mi f 0
+Stack frame at 0xbffff700:
+ eip = 0x8048413 in swap_n_add (swap_n_add.c:7); saved eip = 0x8048443
+ called by frame at 0xbffff720
+ source language c.
+ Arglist at 0xbffff6f8, args: xp=0xbffff708, yp=0xbffff70c
+ Locals at 0xbffff6f8, Previous frame's sp is 0xbffff700
+ Saved registers:
+  ebp at 0xbffff6f8, eip at 0xbffff6fc
+[;31mgdb-peda$ [0mif [K[K f 1
+Stack frame at 0xbffff720:
+ eip = 0x8048443 in main (swap_n_add.c:13); saved eip = 0xb7e41a83
+ called by frame at 0xbffff790, caller of frame at 0xbffff700
+ source language c.
+ Arglist at 0xbffff718, args: argc=0x1, argv=0xbffff7b4
+ Locals at 0xbffff718, Previous frame's sp is 0xbffff720
+ Saved registers:
+  ebp at 0xbffff718, eip at 0xbffff71c
+[;31mgdb-peda$ [0mi f 2
+Stack frame at 0xbffff790:
+ eip = 0xb7e41a83 in __libc_start_main (libc-start.c:287); saved eip = 0x8048311
+ called by frame at 0x0, caller of frame at 0xbffff720
+ source language c.
+ Arglist at unknown address.
+ Locals at unknown address, Previous frame's sp is 0xbffff790
+ Saved registers:
+  ebx at 0xbffff77c, ebp at 0xbffff788, esi at 0xbffff780, edi at 0xbffff784, eip at 0xbffff78c
+[;31mgdb-peda$ [0m i f 3
+Stack frame at 0x0:
+ eip = 0x8048311 in _start; saved eip = 0x8048311
+ caller of frame at 0xbffff790
+ Arglist at unknown address.
+ Locals at unknown address, Previous frame's sp in esp
+[;31mgdb-peda$ [0mconti
+Continuing.
+[;34m[----------------------------------registers-----------------------------------][0m
+[m[;32mEAX[0m: 0x20b 
+[;32mEBX[0m: [;34m0xb7fd2000[0m --> 0x1a9da8 
+[;32mECX[0m: 0x92be013d 
+[;32mEDX[0m: 0x20b 
+[;32mESI[0m: 0x0 
+[;32mEDI[0m: 0x0 
+[;32mEBP[0m: [;34m0xbffff718[0m --> 0x0 
+[;32mESP[0m: [;34m0xbffff700[0m --> [;34m0xbffff708[0m --> 0x421 
+[;32mEIP[0m: [;31m0x8048453[0m (<main+54>:	mov    -0x8(%ebp),%eax)[0m
+[m[;32mEFLAGS[0m: 0x212 ([;32mcarry[0m [;32mparity[0m [;1;31mADJUST[0m [;32mzero[0m [;32msign[0m [;32mtrap[0m [;1;31mINTERRUPT[0m [;32mdirection[0m [;32moverflow[0m)[0m
+[m[;34m[-------------------------------------code-------------------------------------][0m[0m
+[m   0x804844c <main+47>:[;2m	sub    %eax,%edx[0m
+   0x804844e <main+49>:[;2m	mov    %edx,%eax[0m
+   0x8048450 <main+51>:[;2m	mov    %eax,-0x4(%ebp)[0m
+=> 0x8048453 <main+54>:[;1;32m	mov    -0x8(%ebp),%eax[0m
+   0x8048456 <main+57>:[m	imul   -0x4(%ebp),%eax[0m
+   0x804845a <main+61>:[m	leave  [0m
+   0x804845b <main+62>:[;34m	ret    [0m
+   0x804845c:[m	xchg   %ax,%ax[0m[0m
+[m[;34m[------------------------------------stack-------------------------------------][0m[0m
+[m0000| [;34m0xbffff700[0m --> [;34m0xbffff708[0m --> 0x421 [0m
+[m0004| [;34m0xbffff704[0m --> [;34m0xbffff70c[0m --> 0x216 [0m
+[m0008| [;34m0xbffff708[0m --> 0x421 [0m
+[m0012| [;34m0xbffff70c[0m --> 0x216 [0m
+[m0016| [;34m0xbffff710[0m --> 0x637 [0m
+[m0020| [;34m0xbffff714[0m --> 0x20b [0m
+[m0024| [;34m0xbffff718[0m --> 0x0 [0m
+[m0028| [;34m0xbffff71c[0m --> [;31m0xb7e41a83[0m (<__libc_start_main+243>:	mov    %eax,(%esp))[0m
+[;34m[------------------------------------------------------------------------------][0m
+[mLegend: [;31mcode[0m, [;34mdata[0m, [;32mrodata[0m, value[0m
+
+Breakpoint 2, main (argc=0x1, argv=0xbffff7b4) at swap_n_add.c:16
+16	  return sum * diff;
+[;31mgdb-peda$ [0mi [K s
+#0  main (argc=0x1, argv=0xbffff7b4) at swap_n_add.c:16
+#1  0xb7e41a83 in __libc_start_main (main=0x804841d <main>, argc=0x1, argv=0xbffff7b4, 
+    init=0x8048460 <__libc_csu_init>, fini=0x80484d0 <__libc_csu_fini>, 
+    rtld_fini=0xb7fed180 <_dl_fini>, stack_end=0xbffff7ac) at libc-start.c:287
+#2  0x08048311 in _start ()
+[;31mgdb-peda$ [0mi f 0
+Stack frame at 0xbffff720:
+ eip = 0x8048453 in main (swap_n_add.c:16); saved eip = 0xb7e41a83
+ called by frame at 0xbffff790
+ source language c.
+ Arglist at 0xbffff718, args: argc=0x1, argv=0xbffff7b4
+ Locals at 0xbffff718, Previous frame's sp is 0xbffff720
+ Saved registers:
+  ebp at 0xbffff718, eip at 0xbffff71c
+[;31mgdb-peda$ [0mi f 1
+Stack frame at 0xbffff790:
+ eip = 0xb7e41a83 in __libc_start_main (libc-start.c:287); saved eip = 0x8048311
+ called by frame at 0x0, caller of frame at 0xbffff720
+ source language c.
+ Arglist at unknown address.
+ Locals at unknown address, Previous frame's sp is 0xbffff790
+ Saved registers:
+  ebx at 0xbffff77c, ebp at 0xbffff788, esi at 0xbffff780, edi at 0xbffff784, eip at 0xbffff78c
+[;31mgdb-peda$ [0mi f 2
+Stack frame at 0x0:
+ eip = 0x8048311 in _start; saved eip = 0x8048311
+ caller of frame at 0xbffff790
+ Arglist at unknown address.
+ Locals at unknown address, Previous frame's sp in esp
+[;31mgdb-peda$ [0mp a1
+$1 = 0x421
+[;31mgdb-peda$ [0mp s2[K[Ka2
+$2 = 0x216
+[;31mgdb-peda$ [0mp sum
+$3 = 0x637
+[;31mgdb-peda$ [0mp 0xbffff710
+$4 = 0xbffff710
+[;31mgdb-peda$ [0mp 0xbffff710[C(0xbffff710[C[C[C[C[C[C[C[C[C[C)
+$5 = 0xbffff710
+[;31mgdb-peda$ [0mx 0xbffff710
+   0xbffff710:	aaa    
+[;31mgdb-peda$ [0mx 0xbffff710[C/ 0xbffff710x 0xbffff710
+0xbffff710:	0x00000637
+[;31mgdb-peda$ [0mx/x 0xbffff710[K1
+0xbffff711:	0x0b000006
+[;31mgdb-peda$ [0mx/x 0xbffff711[K[K0f
+0xbffff70f:	0x00063700
+[;31mgdb-peda$ [0mp diff
+$6 = 0x20b
+[;31mgdb-peda$ [0mx/x 0xbffff714
+0xbffff714:	0x0000020b
+[;31mgdb-peda$ [0mp $esp
+$7 = (void *) 0xbffff700
+[;31mgdb-peda$ [0mp $ebp
+$8 = (void *) 0xbffff718
+[;31mgdb-peda$ [0mx $ebp
+0xbffff718:	0x00000000
+[;31mgdb-peda$ [0mx $ebp04[K[K+4
+0xbffff71c:	0xb7e41a83
+[;31mgdb-peda$ [0mx $ebp+4[K8
+0xbffff720:	0x00000001
+[;31mgdb-peda$ [0mx $ebp+8[K12
+0xbffff724:	0xbffff7b4
+[;31mgdb-peda$ [0mx/d 0xbffff7b4
+0xbffff7b4:	-1073743658
+[;31mgdb-peda$ [0mx/d 0xbffff7b4[C[1P 0xbffff7b4x 0xbffff7b4
+0xbffff7b4:	0xbffff8d6
+[;31mgdb-peda$ [0mp ([K(char*) 0xbffff7b4
+$9 = 0xbffff7b4 "\326\370\377\277"
+[;31mgdb-peda$ [0mp (char*) 0xbffff7b4[K[K[K[K[K[K[K[K[K[K0xbffff8d6
+$10 = 0xbffff8d6 "/home/user/gdb/swap_n_add"
+[;31mgdb-peda$ [0mx [K/x 0xbffff724
+0xbffff724:	0xbffff7b4
+[;31mgdb-peda$ [0mx/x 0xbffff724[1P[1@p
+$11 = 0xbffff724
+[;31mgdb-peda$ [0mx $ebp+12
+0xbffff724:	0xbffff7b4
+[;31mgdb-peda$ [0mx $ebp+12[C/ $ebp+12x $ebp+12
+0xbffff724:	0xbffff7b4
+[;31mgdb-peda$ [0mx/x $ebp+12[K[K[K[K[K[K[K0xbffff7b4
+0xbffff7b4:	0xbffff8d6
+[;31mgdb-peda$ [0mconti
+Continuing.
+[Inferior 1 (process 1837) exited with code 0135]
+[m[;33mWarning: not running or target is remote[0m[0m
+[;31mgdb-peda$ [0mrun
+Starting program: /home/user/gdb/swap_n_add 
+[;34m[----------------------------------registers-----------------------------------][0m
+[m[;32mEAX[0m: [;34m0xbffff70c[0m --> 0x216 
+[;32mEBX[0m: [;34m0xb7fd2000[0m --> 0x1a9da8 
+[;32mECX[0m: 0x81ef146a 
+[;32mEDX[0m: 0x216 
+[;32mESI[0m: 0x0 
+[;32mEDI[0m: 0x0 
+[;32mEBP[0m: [;34m0xbffff6f8[0m --> [;34m0xbffff718[0m --> 0x0 
+[;32mESP[0m: [;34m0xbffff6e8[0m --> [;34m0x804a000[0m --> [;32m0x8049f14[0m --> 0x1 
+[;32mEIP[0m: [;31m0x8048413[0m (<swap_n_add+38>:	mov    -0x4(%ebp),%eax)[0m
+[m[;32mEFLAGS[0m: 0x286 ([;32mcarry[0m [;1;31mPARITY[0m [;32madjust[0m [;32mzero[0m [;1;31mSIGN[0m [;32mtrap[0m [;1;31mINTERRUPT[0m [;32mdirection[0m [;32moverflow[0m)[0m
+[m[;34m[-------------------------------------code-------------------------------------][0m[0m
+[m   0x804840b <swap_n_add+30>:[;2m	mov    0xc(%ebp),%eax[0m
+   0x804840e <swap_n_add+33>:[;2m	mov    -0x8(%ebp),%edx[0m
+   0x8048411 <swap_n_add+36>:[;2m	mov    %edx,(%eax)[0m
+=> 0x8048413 <swap_n_add+38>:[;1;32m	mov    -0x4(%ebp),%eax[0m
+   0x8048416 <swap_n_add+41>:[m	mov    -0x8(%ebp),%edx[0m
+   0x8048419 <swap_n_add+44>:[m	add    %edx,%eax[0m
+   0x804841b <swap_n_add+46>:[m	leave  [0m
+   0x804841c <swap_n_add+47>:[;34m	ret[0m[0m
+[m[;34m[------------------------------------stack-------------------------------------][0m[0m
+[m0000| [;34m0xbffff6e8[0m --> [;34m0x804a000[0m --> [;32m0x8049f14[0m --> 0x1 [0m
+[m0004| [;34m0xbffff6ec[0m --> [;31m0x80484b2[0m (<__libc_csu_init+82>:	add    $0x1,%edi)[0m
+[m0008| [;34m0xbffff6f0[0m --> 0x216 [0m
+[m0012| [;34m0xbffff6f4[0m --> 0x421 [0m
+[m0016| [;34m0xbffff6f8[0m --> [;34m0xbffff718[0m --> 0x0 [0m
+[m0020| [;34m0xbffff6fc[0m --> [;31m0x8048443[0m (<main+38>:	mov    %eax,-0x8(%ebp))[0m
+[m0024| [;34m0xbffff700[0m --> [;34m0xbffff708[0m --> 0x421 [0m
+[m0028| [;34m0xbffff704[0m --> [;34m0xbffff70c[0m --> 0x216 [0m
+[;34m[------------------------------------------------------------------------------][0m
+[mLegend: [;31mcode[0m, [;34mdata[0m, [;32mrodata[0m, value[0m
+
+Breakpoint 1, swap_n_add (xp=0xbffff708, yp=0xbffff70c) at swap_n_add.c:7
+7	  return x + y;
+[;31mgdb-peda$ [0mlist 1,100
+1	int swap_n_add(int *xp, int *yp) {
+2	  int x = *xp;
+3	  int y = *yp;
+4	
+5	  *xp = y;
+6	  *yp = x;
+7	  return x + y;
+8	}
+9	
+10	int main(int argc, char **argv) {
+11	  int a1 = 534;
+12	  int a2 = 1057;
+13	  int sum = swap_n_add(&a1, &a2);
+14	  int diff = a1 - a2;
+15	  
+16	  return sum * diff;
+17	}
+18	
+[;31mgdb-peda$ [0mconti
+Continuing.
+[;34m[----------------------------------registers-----------------------------------][0m
+[m[;32mEAX[0m: 0x20b 
+[;32mEBX[0m: [;34m0xb7fd2000[0m --> 0x1a9da8 
+[;32mECX[0m: 0x81ef146a 
+[;32mEDX[0m: 0x20b 
+[;32mESI[0m: 0x0 
+[;32mEDI[0m: 0x0 
+[;32mEBP[0m: [;34m0xbffff718[0m --> 0x0 
+[;32mESP[0m: [;34m0xbffff700[0m --> [;34m0xbffff708[0m --> 0x421 
+[;32mEIP[0m: [;31m0x8048453[0m (<main+54>:	mov    -0x8(%ebp),%eax)[0m
+[m[;32mEFLAGS[0m: 0x212 ([;32mcarry[0m [;32mparity[0m [;1;31mADJUST[0m [;32mzero[0m [;32msign[0m [;32mtrap[0m [;1;31mINTERRUPT[0m [;32mdirection[0m [;32moverflow[0m)[0m
+[m[;34m[-------------------------------------code-------------------------------------][0m[0m
+[m   0x804844c <main+47>:[;2m	sub    %eax,%edx[0m
+   0x804844e <main+49>:[;2m	mov    %edx,%eax[0m
+   0x8048450 <main+51>:[;2m	mov    %eax,-0x4(%ebp)[0m
+=> 0x8048453 <main+54>:[;1;32m	mov    -0x8(%ebp),%eax[0m
+   0x8048456 <main+57>:[m	imul   -0x4(%ebp),%eax[0m
+   0x804845a <main+61>:[m	leave  [0m
+   0x804845b <main+62>:[;34m	ret    [0m
+   0x804845c:[m	xchg   %ax,%ax[0m[0m
+[m[;34m[------------------------------------stack-------------------------------------][0m[0m
+[m0000| [;34m0xbffff700[0m --> [;34m0xbffff708[0m --> 0x421 [0m
+[m0004| [;34m0xbffff704[0m --> [;34m0xbffff70c[0m --> 0x216 [0m
+[m0008| [;34m0xbffff708[0m --> 0x421 [0m
+[m0012| [;34m0xbffff70c[0m --> 0x216 [0m
+[m0016| [;34m0xbffff710[0m --> 0x637 [0m
+[m0020| [;34m0xbffff714[0m --> 0x20b [0m
+[m0024| [;34m0xbffff718[0m --> 0x0 [0m
+[m0028| [;34m0xbffff71c[0m --> [;31m0xb7e41a83[0m (<__libc_start_main+243>:	mov    %eax,(%esp))[0m
+[;34m[------------------------------------------------------------------------------][0m
+[mLegend: [;31mcode[0m, [;34mdata[0m, [;32mrodata[0m, value[0m
+
+Breakpoint 2, main (argc=0x1, argv=0xbffff7b4) at swap_n_add.c:16
+16	  return sum * diff;
+[;31mgdb-peda$ [0mb 17
+Breakpoint 3 at 0x804845a: file swap_n_add.c, line 17.
+[;31mgdb-peda$ [0mconti
+Continuing.
+[;34m[----------------------------------registers-----------------------------------][0m
+[m[;32mEAX[0m: 0xcb25d 
+[;32mEBX[0m: [;34m0xb7fd2000[0m --> 0x1a9da8 
+[;32mECX[0m: 0x81ef146a 
+[;32mEDX[0m: 0x20b 
+[;32mESI[0m: 0x0 
+[;32mEDI[0m: 0x0 
+[;32mEBP[0m: [;34m0xbffff718[0m --> 0x0 
+[;32mESP[0m: [;34m0xbffff700[0m --> [;34m0xbffff708[0m --> 0x421 
+[;32mEIP[0m: [;31m0x804845a[0m (<main+61>:	leave)[0m
+[m[;32mEFLAGS[0m: 0x212 ([;32mcarry[0m [;32mparity[0m [;1;31mADJUST[0m [;32mzero[0m [;32msign[0m [;32mtrap[0m [;1;31mINTERRUPT[0m [;32mdirection[0m [;32moverflow[0m)[0m
+[m[;34m[-------------------------------------code-------------------------------------][0m[0m
+[m   0x8048450 <main+51>:[;2m	mov    %eax,-0x4(%ebp)[0m
+   0x8048453 <main+54>:[;2m	mov    -0x8(%ebp),%eax[0m
+   0x8048456 <main+57>:[;2m	imul   -0x4(%ebp),%eax[0m
+=> 0x804845a <main+61>:[;1;32m	leave  [0m
+   0x804845b <main+62>:[;34m	ret    [0m
+   0x804845c:[m	xchg   %ax,%ax[0m
+   0x804845e:[m	xchg   %ax,%ax[0m
+   0x8048460 <__libc_csu_init>:[m	push   %ebp[0m[0m
+[m[;34m[------------------------------------stack-------------------------------------][0m[0m
+[m0000| [;34m0xbffff700[0m --> [;34m0xbffff708[0m --> 0x421 [0m
+[m0004| [;34m0xbffff704[0m --> [;34m0xbffff70c[0m --> 0x216 [0m
+[m0008| [;34m0xbffff708[0m --> 0x421 [0m
+[m0012| [;34m0xbffff70c[0m --> 0x216 [0m
+[m0016| [;34m0xbffff710[0m --> 0x637 [0m
+[m0020| [;34m0xbffff714[0m --> 0x20b [0m
+[m0024| [;34m0xbffff718[0m --> 0x0 [0m
+[m0028| [;34m0xbffff71c[0m --> [;31m0xb7e41a83[0m (<__libc_start_main+243>:	mov    %eax,(%esp))[0m
+[;34m[------------------------------------------------------------------------------][0m
+[mLegend: [;31mcode[0m, [;34mdata[0m, [;32mrodata[0m, value[0m
+
+Breakpoint 3, main (argc=0x1, argv=0xbffff7b4) at swap_n_add.c:17
+17	}
+[;31mgdb-peda$ [0mp #[K$eax
+$12 = 0xcb25d
+[;31mgdb-peda$ [0md
+[;31mgdb-peda$ [0mlis[K[K[Kconti
+Continuing.
+[Inferior 1 (process 1861) exited with code 0135]
+[m[;33mWarning: not running or target is remote[0m[0m
+[;31mgdb-peda$ [0mlist 1,100
+1	int swap_n_add(int *xp, int *yp) {
+2	  int x = *xp;
+3	  int y = *yp;
+4	
+5	  *xp = y;
+6	  *yp = x;
+7	  return x + y;
+8	}
+9	
+10	int main(int argc, char **argv) {
+11	  int a1 = 534;
+12	  int a2 = 1057;
+13	  int sum = swap_n_add(&a1, &a2);
+14	  int diff = a1 - a2;
+15	  
+16	  return sum * diff;
+17	}
+18	
+[;31mgdb-peda$ [0mb 14[K3
+Breakpoint 4 at 0x8048431: file swap_n_add.c, line 13.
+[;31mgdb-peda$ [0mb 14
+Breakpoint 5 at 0x8048446: file swap_n_add.c, line 14.
+[;31mgdb-peda$ [0mrun
+Starting program: /home/user/gdb/swap_n_add 
+[;34m[----------------------------------registers-----------------------------------][0m
+[m[;32mEAX[0m: 0x1 
+[;32mEBX[0m: [;34m0xb7fd2000[0m --> 0x1a9da8 
+[;32mECX[0m: 0x45a74de9 
+[;32mEDX[0m: [;34m0xbffff744[0m --> [;34m0xb7fd2000[0m --> 0x1a9da8 
+[;32mESI[0m: 0x0 
+[;32mEDI[0m: 0x0 
+[;32mEBP[0m: [;34m0xbffff718[0m --> 0x0 
+[;32mESP[0m: [;34m0xbffff700[0m --> [;34m0xb7fd23c4[0m --> [;34m0xb7fd31e0[0m --> 0x0 
+[;32mEIP[0m: [;31m0x8048431[0m (<main+20>:	lea    -0xc(%ebp),%eax)[0m
+[m[;32mEFLAGS[0m: 0x286 ([;32mcarry[0m [;1;31mPARITY[0m [;32madjust[0m [;32mzero[0m [;1;31mSIGN[0m [;32mtrap[0m [;1;31mINTERRUPT[0m [;32mdirection[0m [;32moverflow[0m)[0m
+[m[;34m[-------------------------------------code-------------------------------------][0m[0m
+[m   0x8048420 <main+3>:[;2m	sub    $0x18,%esp[0m
+   0x8048423 <main+6>:[;2m	movl   $0x216,-0x10(%ebp)[0m
+   0x804842a <main+13>:[;2m	movl   $0x421,-0xc(%ebp)[0m
+=> 0x8048431 <main+20>:[;1;32m	lea    -0xc(%ebp),%eax[0m
+   0x8048434 <main+23>:[m	mov    %eax,0x4(%esp)[0m
+   0x8048438 <main+27>:[m	lea    -0x10(%ebp),%eax[0m
+   0x804843b <main+30>:[m	mov    %eax,(%esp)[0m
+   0x804843e <main+33>:[;32m	call   0x80483ed <swap_n_add>[0m[0m
+[m[;34m[------------------------------------stack-------------------------------------][0m[0m
+[m0000| [;34m0xbffff700[0m --> [;34m0xb7fd23c4[0m --> [;34m0xb7fd31e0[0m --> 0x0 [0m
+[m0004| [;34m0xbffff704[0m --> [;34m0xb7fff000[0m --> 0x20f34 [0m
+[m0008| [;34m0xbffff708[0m --> 0x216 [0m
+[m0012| [;34m0xbffff70c[0m --> 0x421 [0m
+[m0016| [;34m0xbffff710[0m --> [;31m0x8048460[0m (<__libc_csu_init>:	push   %ebp)[0m
+[m0020| [;34m0xbffff714[0m --> 0x0 [0m
+[m0024| [;34m0xbffff718[0m --> 0x0 [0m
+[m0028| [;34m0xbffff71c[0m --> [;31m0xb7e41a83[0m (<__libc_start_main+243>:	mov    %eax,(%esp))[0m
+[;34m[------------------------------------------------------------------------------][0m
+[mLegend: [;31mcode[0m, [;34mdata[0m, [;32mrodata[0m, value[0m
+
+Breakpoint 4, main (argc=0x1, argv=0xbffff7b4) at swap_n_add.c:13
+13	  int sum = swap_n_add(&a1, &a2);
+[;31mgdb-peda$ [0mprint 1[Ka1
+$13 = 0x216
+[;31mgdb-peda$ [0mprn[Kint a2
+$14 = 0x421
+[;31mgdb-peda$ [0mconti
+Continuing.
+[;34m[----------------------------------registers-----------------------------------][0m
+[m[;32mEAX[0m: 0x637 
+[;32mEBX[0m: [;34m0xb7fd2000[0m --> 0x1a9da8 
+[;32mECX[0m: 0x45a74de9 
+[;32mEDX[0m: 0x216 
+[;32mESI[0m: 0x0 
+[;32mEDI[0m: 0x0 
+[;32mEBP[0m: [;34m0xbffff718[0m --> 0x0 
+[;32mESP[0m: [;34m0xbffff700[0m --> [;34m0xbffff708[0m --> 0x421 
+[;32mEIP[0m: [;31m0x8048446[0m (<main+41>:	mov    -0x10(%ebp),%edx)[0m
+[m[;32mEFLAGS[0m: 0x202 ([;32mcarry[0m [;32mparity[0m [;32madjust[0m [;32mzero[0m [;32msign[0m [;32mtrap[0m [;1;31mINTERRUPT[0m [;32mdirection[0m [;32moverflow[0m)[0m
+[m[;34m[-------------------------------------code-------------------------------------][0m[0m
+[m   0x804843b <main+30>:[;2m	mov    %eax,(%esp)[0m
+   0x804843e <main+33>:[;2;32m	call   0x80483ed <swap_n_add>[0m
+   0x8048443 <main+38>:[;2m	mov    %eax,-0x8(%ebp)[0m
+=> 0x8048446 <main+41>:[;1;32m	mov    -0x10(%ebp),%edx[0m
+   0x8048449 <main+44>:[m	mov    -0xc(%ebp),%eax[0m
+   0x804844c <main+47>:[m	sub    %eax,%edx[0m
+   0x804844e <main+49>:[m	mov    %edx,%eax[0m
+   0x8048450 <main+51>:[m	mov    %eax,-0x4(%ebp)[0m[0m
+[m[;34m[------------------------------------stack-------------------------------------][0m[0m
+[m0000| [;34m0xbffff700[0m --> [;34m0xbffff708[0m --> 0x421 [0m
+[m0004| [;34m0xbffff704[0m --> [;34m0xbffff70c[0m --> 0x216 [0m
+[m0008| [;34m0xbffff708[0m --> 0x421 [0m
+[m0012| [;34m0xbffff70c[0m --> 0x216 [0m
+[m0016| [;34m0xbffff710[0m --> 0x637 [0m
+[m0020| [;34m0xbffff714[0m --> 0x0 [0m
+[m0024| [;34m0xbffff718[0m --> 0x0 [0m
+[m0028| [;34m0xbffff71c[0m --> [;31m0xb7e41a83[0m (<__libc_start_main+243>:	mov    %eax,(%esp))[0m
+[;34m[------------------------------------------------------------------------------][0m
+[mLegend: [;31mcode[0m, [;34mdata[0m, [;32mrodata[0m, value[0m
+
+Breakpoint 5, main (argc=0x1, argv=0xbffff7b4) at swap_n_add.c:14
+14	  int diff = a1 - a2;
+[;31mgdb-peda$ [0mp a1
+$15 = 0x421
+[;31mgdb-peda$ [0mp a2
+$16 = 0x216
+[;31mgdb-peda$ [0mlist swap_n_add
+1	int swap_n_add(int *xp, int *yp) {
+2	  int x = *xp;
+3	  int y = *yp;
+4	
+5	  *xp = y;
+6	  *yp = x;
+7	  return x + y;
+8	}
+9	
+10	int main(int argc, char **argv) {
+[;31mgdb-peda$ [0mdisas swap_n_add
+Dump of assembler code for function swap_n_add:
+   0x080483ed <+0>:	push   %ebp
+   0x080483ee <+1>:	mov    %esp,%ebp
+   0x080483f0 <+3>:	sub    $0x10,%esp
+   0x080483f3 <+6>:	mov    0x8(%ebp),%eax
+   0x080483f6 <+9>:	mov    (%eax),%eax
+   0x080483f8 <+11>:	mov    %eax,-0x8(%ebp)
+   0x080483fb <+14>:	mov    0xc(%ebp),%eax
+   0x080483fe <+17>:	mov    (%eax),%eax
+   0x08048400 <+19>:	mov    %eax,-0x4(%ebp)
+   0x08048403 <+22>:	mov    0x8(%ebp),%eax
+   0x08048406 <+25>:	mov    -0x4(%ebp),%edx
+   0x08048409 <+28>:	mov    %edx,(%eax)
+   0x0804840b <+30>:	mov    0xc(%ebp),%eax
+   0x0804840e <+33>:	mov    -0x8(%ebp),%edx
+   0x08048411 <+36>:	mov    %edx,(%eax)
+   0x08048413 <+38>:	mov    -0x4(%ebp),%eax
+   0x08048416 <+41>:	mov    -0x8(%ebp),%edx
+   0x08048419 <+44>:	add    %edx,%eax
+   0x0804841b <+46>:	leave  
+   0x0804841c <+47>:	ret    
+End of assembler dump.
+[;31mgdb-peda$ [0mconti
+Continuing.
+[Inferior 1 (process 1862) exited with code 0135]
+[m[;33mWarning: not running or target is remote[0m[0m
+[;31mgdb-peda$ [0mrun[K[K[Ki b
+Num     Type           Disp Enb Address    What
+4       breakpoint     keep y   0x08048431 in main at swap_n_add.c:13
+	breakpoint already hit 1 time
+5       breakpoint     keep y   0x08048446 in main at swap_n_add.c:14
+	breakpoint already hit 1 time
+[;31mgdb-peda$ [0mrun
+Starting program: /home/user/gdb/swap_n_add 
+[;34m[----------------------------------registers-----------------------------------][0m
+[m[;32mEAX[0m: 0x1 
+[;32mEBX[0m: [;34m0xb7fd2000[0m --> 0x1a9da8 
+[;32mECX[0m: 0xa65fbe01 
+[;32mEDX[0m: [;34m0xbffff744[0m --> [;34m0xb7fd2000[0m --> 0x1a9da8 
+[;32mESI[0m: 0x0 
+[;32mEDI[0m: 0x0 
+[;32mEBP[0m: [;34m0xbffff718[0m --> 0x0 
+[;32mESP[0m: [;34m0xbffff700[0m --> [;34m0xb7fd23c4[0m --> [;34m0xb7fd31e0[0m --> 0x0 
+[;32mEIP[0m: [;31m0x8048431[0m (<main+20>:	lea    -0xc(%ebp),%eax)[0m
+[m[;32mEFLAGS[0m: 0x286 ([;32mcarry[0m [;1;31mPARITY[0m [;32madjust[0m [;32mzero[0m [;1;31mSIGN[0m [;32mtrap[0m [;1;31mINTERRUPT[0m [;32mdirection[0m [;32moverflow[0m)[0m
+[m[;34m[-------------------------------------code-------------------------------------][0m[0m
+[m   0x8048420 <main+3>:[;2m	sub    $0x18,%esp[0m
+   0x8048423 <main+6>:[;2m	movl   $0x216,-0x10(%ebp)[0m
+   0x804842a <main+13>:[;2m	movl   $0x421,-0xc(%ebp)[0m
+=> 0x8048431 <main+20>:[;1;32m	lea    -0xc(%ebp),%eax[0m
+   0x8048434 <main+23>:[m	mov    %eax,0x4(%esp)[0m
+   0x8048438 <main+27>:[m	lea    -0x10(%ebp),%eax[0m
+   0x804843b <main+30>:[m	mov    %eax,(%esp)[0m
+   0x804843e <main+33>:[;32m	call   0x80483ed <swap_n_add>[0m[0m
+[m[;34m[------------------------------------stack-------------------------------------][0m[0m
+[m0000| [;34m0xbffff700[0m --> [;34m0xb7fd23c4[0m --> [;34m0xb7fd31e0[0m --> 0x0 [0m
+[m0004| [;34m0xbffff704[0m --> [;34m0xb7fff000[0m --> 0x20f34 [0m
+[m0008| [;34m0xbffff708[0m --> 0x216 [0m
+[m0012| [;34m0xbffff70c[0m --> 0x421 [0m
+[m0016| [;34m0xbffff710[0m --> [;31m0x8048460[0m (<__libc_csu_init>:	push   %ebp)[0m
+[m0020| [;34m0xbffff714[0m --> 0x0 [0m
+[m0024| [;34m0xbffff718[0m --> 0x0 [0m
+[m0028| [;34m0xbffff71c[0m --> [;31m0xb7e41a83[0m (<__libc_start_main+243>:	mov    %eax,(%esp))[0m
+[;34m[------------------------------------------------------------------------------][0m
+[mLegend: [;31mcode[0m, [;34mdata[0m, [;32mrodata[0m, value[0m
+
+Breakpoint 4, main (argc=0x1, argv=0xbffff7b4) at swap_n_add.c:13
+13	  int sum = swap_n_add(&a1, &a2);
+[;31mgdb-peda$ [0mpri[K[K diff
+$17 = 0x0
+[;31mgdb-peda$ [0mconti
+Continuing.
+[;34m[----------------------------------registers-----------------------------------][0m
+[m[;32mEAX[0m: 0x637 
+[;32mEBX[0m: [;34m0xb7fd2000[0m --> 0x1a9da8 
+[;32mECX[0m: 0xa65fbe01 
+[;32mEDX[0m: 0x216 
+[;32mESI[0m: 0x0 
+[;32mEDI[0m: 0x0 
+[;32mEBP[0m: [;34m0xbffff718[0m --> 0x0 
+[;32mESP[0m: [;34m0xbffff700[0m --> [;34m0xbffff708[0m --> 0x421 
+[;32mEIP[0m: [;31m0x8048446[0m (<main+41>:	mov    -0x10(%ebp),%edx)[0m
+[m[;32mEFLAGS[0m: 0x202 ([;32mcarry[0m [;32mparity[0m [;32madjust[0m [;32mzero[0m [;32msign[0m [;32mtrap[0m [;1;31mINTERRUPT[0m [;32mdirection[0m [;32moverflow[0m)[0m
+[m[;34m[-------------------------------------code-------------------------------------][0m[0m
+[m   0x804843b <main+30>:[;2m	mov    %eax,(%esp)[0m
+   0x804843e <main+33>:[;2;32m	call   0x80483ed <swap_n_add>[0m
+   0x8048443 <main+38>:[;2m	mov    %eax,-0x8(%ebp)[0m
+=> 0x8048446 <main+41>:[;1;32m	mov    -0x10(%ebp),%edx[0m
+   0x8048449 <main+44>:[m	mov    -0xc(%ebp),%eax[0m
+   0x804844c <main+47>:[m	sub    %eax,%edx[0m
+   0x804844e <main+49>:[m	mov    %edx,%eax[0m
+   0x8048450 <main+51>:[m	mov    %eax,-0x4(%ebp)[0m[0m
+[m[;34m[------------------------------------stack-------------------------------------][0m[0m
+[m0000| [;34m0xbffff700[0m --> [;34m0xbffff708[0m --> 0x421 [0m
+[m0004| [;34m0xbffff704[0m --> [;34m0xbffff70c[0m --> 0x216 [0m
+[m0008| [;34m0xbffff708[0m --> 0x421 [0m
+[m0012| [;34m0xbffff70c[0m --> 0x216 [0m
+[m0016| [;34m0xbffff710[0m --> 0x637 [0m
+[m0020| [;34m0xbffff714[0m --> 0x0 [0m
+[m0024| [;34m0xbffff718[0m --> 0x0 [0m
+[m0028| [;34m0xbffff71c[0m --> [;31m0xb7e41a83[0m (<__libc_start_main+243>:	mov    %eax,(%esp))[0m
+[;34m[------------------------------------------------------------------------------][0m
+[mLegend: [;31mcode[0m, [;34mdata[0m, [;32mrodata[0m, value[0m
+
+Breakpoint 5, main (argc=0x1, argv=0xbffff7b4) at swap_n_add.c:14
+14	  int diff = a1 - a2;
+[;31mgdb-peda$ [0mp diff
+$18 = 0x0
+[;31mgdb-peda$ [0mb 15
+Breakpoint 6 at 0x8048453: file swap_n_add.c, line 15.
+[;31mgdb-peda$ [0md 6
+[;31mgdb-peda$ [0mlist swap_n_add
+1	int swap_n_add(int *xp, int *yp) {
+2	  int x = *xp;
+3	  int y = *yp;
+4	
+5	  *xp = y;
+6	  *yp = x;
+7	  return x + y;
+8	}
+9	
+10	int main(int argc, char **argv) {
+[;31mgdb-peda$ [0mb [K[K
+11	  int a1 = 534;
+12	  int a2 = 1057;
+13	  int sum = swap_n_add(&a1, &a2);
+14	  int diff = a1 - a2;
+15	  
+16	  return sum * diff;
+17	}
+18	
+[;31mgdb-peda$ [0mb 15
+Breakpoint 7 at 0x8048453: file swap_n_add.c, line 15.
+[;31mgdb-peda$ [0mdo[K[Kconti
+Continuing.
+[;34m[----------------------------------registers-----------------------------------][0m
+[m[;32mEAX[0m: 0x20b 
+[;32mEBX[0m: [;34m0xb7fd2000[0m --> 0x1a9da8 
+[;32mECX[0m: 0xa65fbe01 
+[;32mEDX[0m: 0x20b 
+[;32mESI[0m: 0x0 
+[;32mEDI[0m: 0x0 
+[;32mEBP[0m: [;34m0xbffff718[0m --> 0x0 
+[;32mESP[0m: [;34m0xbffff700[0m --> [;34m0xbffff708[0m --> 0x421 
+[;32mEIP[0m: [;31m0x8048453[0m (<main+54>:	mov    -0x8(%ebp),%eax)[0m
+[m[;32mEFLAGS[0m: 0x212 ([;32mcarry[0m [;32mparity[0m [;1;31mADJUST[0m [;32mzero[0m [;32msign[0m [;32mtrap[0m [;1;31mINTERRUPT[0m [;32mdirection[0m [;32moverflow[0m)[0m
+[m[;34m[-------------------------------------code-------------------------------------][0m[0m
+[m   0x804844c <main+47>:[;2m	sub    %eax,%edx[0m
+   0x804844e <main+49>:[;2m	mov    %edx,%eax[0m
+   0x8048450 <main+51>:[;2m	mov    %eax,-0x4(%ebp)[0m
+=> 0x8048453 <main+54>:[;1;32m	mov    -0x8(%ebp),%eax[0m
+   0x8048456 <main+57>:[m	imul   -0x4(%ebp),%eax[0m
+   0x804845a <main+61>:[m	leave  [0m
+   0x804845b <main+62>:[;34m	ret    [0m
+   0x804845c:[m	xchg   %ax,%ax[0m[0m
+[m[;34m[------------------------------------stack-------------------------------------][0m[0m
+[m0000| [;34m0xbffff700[0m --> [;34m0xbffff708[0m --> 0x421 [0m
+[m0004| [;34m0xbffff704[0m --> [;34m0xbffff70c[0m --> 0x216 [0m
+[m0008| [;34m0xbffff708[0m --> 0x421 [0m
+[m0012| [;34m0xbffff70c[0m --> 0x216 [0m
+[m0016| [;34m0xbffff710[0m --> 0x637 [0m
+[m0020| [;34m0xbffff714[0m --> 0x20b [0m
+[m0024| [;34m0xbffff718[0m --> 0x0 [0m
+[m0028| [;34m0xbffff71c[0m --> [;31m0xb7e41a83[0m (<__libc_start_main+243>:	mov    %eax,(%esp))[0m
+[;34m[------------------------------------------------------------------------------][0m
+[mLegend: [;31mcode[0m, [;34mdata[0m, [;32mrodata[0m, value[0m
+
+Breakpoint 7, main (argc=0x1, argv=0xbffff7b4) at swap_n_add.c:16
+16	  return sum * diff;
+[;31mgdb-peda$ [0mp diff
+$19 = 0x20b
+[;31mgdb-peda$ [0mp/d -diff
+$20 = -523
+[;31mgdb-peda$ [0mq
+]0;user@ubuntu-sts: ~/gdbuser@ubuntu-sts:~/gdb$ gcc -g -c[K[KwhileLoop.c whileLoop[C[1P whileLoop[1P whileLoop[C[C[C[C[C[C[C[C[C[C.c
+whileLoop: In function `__x86.get_pc_thunk.bx':
+(.text+0x30): multiple definition of `__x86.get_pc_thunk.bx'
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_info): relocation 0 has invalid symbol index 8
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_info): relocation 1 has invalid symbol index 9
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_info): relocation 2 has invalid symbol index 10
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_ranges): relocation 0 has invalid symbol index 4
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_ranges): relocation 1 has invalid symbol index 4
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_ranges): relocation 2 has invalid symbol index 5
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_ranges): relocation 3 has invalid symbol index 5
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_ranges): relocation 4 has invalid symbol index 6
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_ranges): relocation 5 has invalid symbol index 6
+/usr/lib/gcc/i686-linux-gnu/4.8/../../../i386-linux-gnu/crti.o:(.gnu.linkonce.t.__x86.get_pc_thunk.bx+0x0): first defined here
+whileLoop: In function `_fini':
+(.fini+0x0): multiple definition of `_fini'
+/usr/lib/gcc/i686-linux-gnu/4.8/../../../i386-linux-gnu/crti.o:(.fini+0x0): first defined here
+whileLoop: In function `data_start':
+(.data+0x0): multiple definition of `__data_start'
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 0 has invalid symbol index 11
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 1 has invalid symbol index 12
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 2 has invalid symbol index 2
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 3 has invalid symbol index 2
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 4 has invalid symbol index 11
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 5 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 6 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 7 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 8 has invalid symbol index 12
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 9 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 10 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 11 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 12 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 13 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 14 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 15 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 16 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 17 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 18 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 19 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 20 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 21 has invalid symbol index 22
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_line): relocation 0 has invalid symbol index 2
+/usr/lib/gcc/i686-linux-gnu/4.8/../../../i386-linux-gnu/crt1.o:(.data+0x0): first defined here
+whileLoop: In function `data_start':
+(.data+0x4): multiple definition of `__dso_handle'
+/usr/lib/gcc/i686-linux-gnu/4.8/crtbegin.o:(.data+0x0): first defined here
+whileLoop:(.rodata+0x4): multiple definition of `_IO_stdin_used'
+/usr/lib/gcc/i686-linux-gnu/4.8/../../../i386-linux-gnu/crt1.o:(.rodata.cst4+0x0): first defined here
+whileLoop: In function `_start':
+(.text+0x0): multiple definition of `_start'
+/usr/lib/gcc/i686-linux-gnu/4.8/../../../i386-linux-gnu/crt1.o:/build/buildd/eglibc-2.19/csu/../sysdeps/i386/start.S:115: first defined here
+whileLoop:(.rodata+0x0): multiple definition of `_fp_hw'
+/usr/lib/gcc/i686-linux-gnu/4.8/../../../i386-linux-gnu/crt1.o:(.rodata+0x0): first defined here
+whileLoop: In function `_init':
+(.init+0x0): multiple definition of `_init'
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_line): relocation 0 has invalid symbol index 4
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_line): relocation 1 has invalid symbol index 5
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_line): relocation 2 has invalid symbol index 6
+/usr/lib/gcc/i686-linux-gnu/4.8/../../../i386-linux-gnu/crti.o:/build/buildd/eglibc-2.19/csu/../sysdeps/i386/crti.S:63: first defined here
+/tmp/ccv65TgK.o: In function `main':
+/home/user/gdb/whileLoop.c:1: multiple definition of `main'
+whileLoop:/home/user/gdb/whileLoop.c:1: first defined here
+/usr/lib/gcc/i686-linux-gnu/4.8/crtend.o:(.tm_clone_table+0x0): multiple definition of `__TMC_END__'
+whileLoop:(.data+0x8): first defined here
+/usr/bin/ld: warning: Cannot create .eh_frame_hdr section, --eh-frame-hdr ignored.
+/usr/bin/ld: error in whileLoop(.eh_frame); no .eh_frame_hdr table will be created.
+collect2: error: ld returned 1 exit status
+]0;user@ubuntu-sts: ~/gdbuser@ubuntu-sts:~/gdb$ gcc -g whileLoop whileLoop.c. whileLoop.cc whileLoop.c[C[C[C[C[C[C[C[C[C[C[C[C[K[K
+whileLoop: In function `__x86.get_pc_thunk.bx':
+(.text+0x30): multiple definition of `__x86.get_pc_thunk.bx'
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_info): relocation 0 has invalid symbol index 8
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_info): relocation 1 has invalid symbol index 9
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_info): relocation 2 has invalid symbol index 10
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_ranges): relocation 0 has invalid symbol index 4
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_ranges): relocation 1 has invalid symbol index 4
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_ranges): relocation 2 has invalid symbol index 5
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_ranges): relocation 3 has invalid symbol index 5
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_ranges): relocation 4 has invalid symbol index 6
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_ranges): relocation 5 has invalid symbol index 6
+/usr/lib/gcc/i686-linux-gnu/4.8/../../../i386-linux-gnu/crti.o:(.gnu.linkonce.t.__x86.get_pc_thunk.bx+0x0): first defined here
+whileLoop: In function `_fini':
+(.fini+0x0): multiple definition of `_fini'
+/usr/lib/gcc/i686-linux-gnu/4.8/../../../i386-linux-gnu/crti.o:(.fini+0x0): first defined here
+whileLoop: In function `data_start':
+(.data+0x0): multiple definition of `__data_start'
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 0 has invalid symbol index 11
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 1 has invalid symbol index 12
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 2 has invalid symbol index 2
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 3 has invalid symbol index 2
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 4 has invalid symbol index 11
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 5 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 6 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 7 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 8 has invalid symbol index 12
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 9 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 10 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 11 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 12 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 13 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 14 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 15 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 16 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 17 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 18 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 19 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 20 has invalid symbol index 13
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_info): relocation 21 has invalid symbol index 22
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crt1.o(.debug_line): relocation 0 has invalid symbol index 2
+/usr/lib/gcc/i686-linux-gnu/4.8/../../../i386-linux-gnu/crt1.o:(.data+0x0): first defined here
+whileLoop: In function `data_start':
+(.data+0x4): multiple definition of `__dso_handle'
+/usr/lib/gcc/i686-linux-gnu/4.8/crtbegin.o:(.data+0x0): first defined here
+whileLoop:(.rodata+0x4): multiple definition of `_IO_stdin_used'
+/usr/lib/gcc/i686-linux-gnu/4.8/../../../i386-linux-gnu/crt1.o:(.rodata.cst4+0x0): first defined here
+whileLoop: In function `_start':
+(.text+0x0): multiple definition of `_start'
+/usr/lib/gcc/i686-linux-gnu/4.8/../../../i386-linux-gnu/crt1.o:/build/buildd/eglibc-2.19/csu/../sysdeps/i386/start.S:115: first defined here
+whileLoop:(.rodata+0x0): multiple definition of `_fp_hw'
+/usr/lib/gcc/i686-linux-gnu/4.8/../../../i386-linux-gnu/crt1.o:(.rodata+0x0): first defined here
+whileLoop: In function `main':
+/home/user/gdb/whileLoop.c:1: multiple definition of `main'
+/tmp/ccReCLzf.o:/home/user/gdb/whileLoop.c:1: first defined here
+whileLoop: In function `_init':
+(.init+0x0): multiple definition of `_init'
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_line): relocation 0 has invalid symbol index 4
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_line): relocation 1 has invalid symbol index 5
+/usr/bin/ld: /usr/lib/debug/usr/lib/i386-linux-gnu/crti.o(.debug_line): relocation 2 has invalid symbol index 6
+/usr/lib/gcc/i686-linux-gnu/4.8/../../../i386-linux-gnu/crti.o:/build/buildd/eglibc-2.19/csu/../sysdeps/i386/crti.S:63: first defined here
+/usr/lib/gcc/i686-linux-gnu/4.8/crtend.o:(.tm_clone_table+0x0): multiple definition of `__TMC_END__'
+whileLoop:(.data+0x8): first defined here
+/usr/bin/ld: error in whileLoop(.eh_frame); no .eh_frame_hdr table will be created.
+collect2: error: ld returned 1 exit status
+]0;user@ubuntu-sts: ~/gdbuser@ubuntu-sts:~/gdb$ gcc -g whileLoop.c whileLoop[1@-[1@o[1@ [C[C[C[C[C[C[C[C[C[1P[1P whileLoop[C[C[C[C[C[C[C[C[C[C.c
+]0;user@ubuntu-sts: ~/gdbuser@ubuntu-sts:~/gdb$ gdb -[KwhileLoop
+GNU gdb (Ubuntu 7.7.1-0ubuntu5~14.04.2) 7.7.1
+Copyright (C) 2014 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "i686-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from whileLoop...done.
+[;31mgdb-peda$ [0mdisas main
+Dump of assembler code for function main:
+   0x080483ed <+0>:	push   %ebp
+   0x080483ee <+1>:	mov    %esp,%ebp
+   0x080483f0 <+3>:	sub    $0x10,%esp
+   0x080483f3 <+6>:	movl   $0x6,-0x8(%ebp)
+   0x080483fa <+13>:	movl   $0x7,-0x4(%ebp)
+   0x08048401 <+20>:	movl   $0x0,-0x10(%ebp)
+   0x08048408 <+27>:	movl   $0x0,-0xc(%ebp)
+   0x0804840f <+34>:	jmp    0x804841b <main+46>
+   0x08048411 <+36>:	mov    -0x8(%ebp),%eax
+   0x08048414 <+39>:	add    %eax,-0x10(%ebp)
+   0x08048417 <+42>:	addl   $0x1,-0xc(%ebp)
+   0x0804841b <+46>:	mov    -0xc(%ebp),%eax
+   0x0804841e <+49>:	cmp    -0x4(%ebp),%eax
+   0x08048421 <+52>:	jl     0x8048411 <main+36>
+   0x08048423 <+54>:	mov    -0x10(%ebp),%eax
+   0x08048426 <+57>:	leave  
+   0x08048427 <+58>:	ret    
+End of assembler dump.
+[;31mgdb-peda$ [0mq
+]0;user@ubuntu-sts: ~/gdbuser@ubuntu-sts:~/gdb$ gd[Kcc -o [K[Kg -o l[Kfr[KorLoop forLoop.c
+]0;user@ubuntu-sts: ~/gdbuser@ubuntu-sts:~/gdb$ gdb forLoop
+GNU gdb (Ubuntu 7.7.1-0ubuntu5~14.04.2) 7.7.1
+Copyright (C) 2014 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "i686-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from forLoop...done.
+[;31mgdb-peda$ [0mdisas main
+Dump of assembler code for function main:
+   0x080483ed <+0>:	push   %ebp
+   0x080483ee <+1>:	mov    %esp,%ebp
+   0x080483f0 <+3>:	sub    $0x10,%esp
+   0x080483f3 <+6>:	movl   $0x0,-0x8(%ebp)
+   0x080483fa <+13>:	movl   $0x0,-0x4(%ebp)
+   0x08048401 <+20>:	movl   $0x0,-0x10(%ebp)
+   0x08048408 <+27>:	movl   $0x0,-0xc(%ebp)
+   0x0804840f <+34>:	jmp    0x804841b <main+46>
+   0x08048411 <+36>:	mov    -0x8(%ebp),%eax
+   0x08048414 <+39>:	add    %eax,-0x10(%ebp)
+   0x08048417 <+42>:	addl   $0x1,-0xc(%ebp)
+   0x0804841b <+46>:	mov    -0xc(%ebp),%eax
+   0x0804841e <+49>:	cmp    -0x4(%ebp),%eax
+   0x08048421 <+52>:	jl     0x8048411 <main+36>
+   0x08048423 <+54>:	mov    -0x10(%ebp),%eax
+   0x08048426 <+57>:	leave  
+   0x08048427 <+58>:	ret    
+End of assembler dump.
+[;31mgdb-peda$ [0mq
+]0;user@ubuntu-sts: ~/gdbuser@ubuntu-sts:~/gdb$ exit
+exit
+
+Script done on Tue 21 Mar 2017 04:28:31 PM AST
