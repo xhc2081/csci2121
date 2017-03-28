@@ -1,0 +1,18 @@
+phase_0
+any five number
+password: aaaaa
+
+phase_1
+password: man
+
+phase_2
+password: minion
+
+phase_3
+password: trick
+
+phase_4
+password: startle
+
+phase_5 bonus
+password: secret
