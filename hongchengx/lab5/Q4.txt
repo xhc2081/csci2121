@@ -1,5 +1,0 @@
-1.The shellcode push the string /bin//sh into the memory. Then, the bug of buffer will overflow
-The memory that contains /bin/sh is executed using system call, because the vecho setuid itself, so the shell will execute like root.
-For the pearl/python repeating the env var address is doing the job of letting the program excess the normal memory address and make the EGG address overflows into the program stack and the code inside EGG can be executed.
-For vecho, turn on the protection guard and guarantee system enables the random memory address.
-2.Using StackGuard to avoid Stack-smashing exploits.
